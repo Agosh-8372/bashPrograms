@@ -35,6 +35,7 @@ totalEmpHrs=$(( $totalEmpHrs + $empHrs ))
 dailyWage[$totalWorkingDays]=$( getEmpWage $empHrs )
 done
 totalSalary=$(( $WAGE_PER_HR * $totalEmpHrs ))
-echo ${dailyWage[@]}
+echo "day - " ${!dailyWage[@]}
+echo "daily Wage - "${dailyWage[@]}
 echo "total salary " $totalSalary
 
