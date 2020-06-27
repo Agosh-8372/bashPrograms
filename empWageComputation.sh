@@ -22,13 +22,19 @@ totalWorkingDays=0;
     esac
    echo $empHrs
 }
-while [[ $totalEmpHrs -le $MAX_MONTH_HR && $totalWorkingDays -le $NUM_WORK_DAYS ]]
+function getEmpWage(){
+local empHrs=$1;
+echo $((empHrs*$WAGE_PER_HR))
+}
+while [[ $totalEmpHrs -lt $MAX_MONTH_HR  &&  $totalWorkingDays -lt $NUM_WORK_DAYS ]]
 do
 ((totalWorkingDays++))
 empCheck=$((RANDOM%3))
 empHrs=$( getWorkHrs $empCheck)
 totalEmpHrs=$(( $totalEmpHrs + $empHrs ))
+dailyWage[$totalWorkingDays]=$( getEmpWage $empHrs )
 done
 totalSalary=$(( $WAGE_PER_HR * $totalEmpHrs ))
-echo $totalSalary
+echo ${dailyWage[@]}
+echo "total salary " $totalSalary
 
